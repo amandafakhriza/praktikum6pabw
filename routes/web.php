@@ -1,9 +1,8 @@
 <?php
+use App\Http\Controllers\LaporanController;
 
-use App\Http\Controllers\MahasiswaController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LaporBanjirController;
-
-Route::get('/form', [MahasiswaController::class, 'form']);
-Route::post('/simpan', [MahasiswaController::class, 'simpan']);
-Route::get('/daftar-mahasiswa', [MahasiswaController::class, 'daftar']);
+Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
+Route::get('/laporan/buat', [LaporanController::class, 'create'])->name('laporan.create');
+Route::post('/laporan', [LaporanController::class, 'store'])->name('laporan.store');
+Route::get('/laporan/{laporan}/konfirmasi', [LaporanController::class, 'konfirmasi'])
+->name('laporan.konfirmasi');
