@@ -1,4 +1,16 @@
-public function run(): void
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+
+class DatabaseSeeder extends Seeder
 {
-    $this->call(LaporanSeeder::class);
+    public function run(): void
+    {
+        $this->call([
+            LaporanSeeder::class,
+            PetugasSeeder::class,
+        ]);
+    }
 }

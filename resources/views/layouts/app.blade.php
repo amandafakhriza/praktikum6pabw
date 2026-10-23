@@ -30,11 +30,15 @@
         }
         .logo { font-size: 1.4rem; font-weight: bold; }
         .logo small { display: block; font-size: .7rem; font-weight: normal; }
-        nav a {
+        nav { display: flex; align-items: center; flex-wrap: wrap; }
+        nav a, nav button.link {
             text-decoration: none; color: var(--teks); font-weight: 600;
             padding: 8px 14px; border-radius: 6px; margin-left: 6px;
+            background: none; border: none; font-size: 1rem;
+            font-family: inherit; cursor: pointer;
         }
-        nav a:hover { background: var(--kuning-tua); }
+        nav a:hover, nav button.link:hover { background: var(--kuning-tua); }
+        nav form { margin: 0; display: inline; }
         main { max-width: 900px; margin: 25px auto; padding: 0 20px; }
         h2 { border-left: 6px solid var(--kuning); padding-left: 10px; }
         .card {
@@ -61,6 +65,8 @@
             border: 1px solid #d6c27a; border-radius: 6px; font-size: 1rem;
         }
         input:focus { outline: 2px solid var(--kuning); }
+        label.cek { font-weight: normal; }
+        label.cek input { width: auto; margin-right: 6px; }
         .btn {
             margin-top: 18px; padding: 10px 20px; background: var(--kuning);
             border: none; border-radius: 6px; font-weight: bold;
@@ -68,12 +74,11 @@
             text-decoration: none; display: inline-block;
         }
         .btn:hover { background: var(--kuning-tua); }
-
         .error-list {
             background: #f8d7da; color: #721c24; padding: 10px 10px 10px 30px;
             border-radius: 6px; margin-bottom: 15px;
         }
-
+        .field-error { color: #C62828; font-size: .9rem; margin-top: 4px; }
         footer { text-align: center; padding: 20px; font-size: .85rem; }
     </style>
 </head>
@@ -82,8 +87,18 @@
         <div class="header-isi">
             <div class="logo"> LaporBanjir <small>BPBD Kabupaten Bandung</small></div>
             <nav>
-                <a href="{{ route('laporan.index') }}">Daftar Laporan</a>
-                <a href="{{ route('laporan.create') }}">Buat Laporan</a>
+                @auth
+                    <a href="{{ route('laporan.index') }}">Daftar Laporan</a>
+                    <a href="{{ route('profile') }}">Profil Petugas</a>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="link">Logout</button>
+                    </form>
+                @else
+                    <a href="{{ route('laporan.create') }}">Buat Laporan</a>
+                    <a href="{{ route('login') }}">Login</a>
+                    <a href="{{ route('register') }}">Register</a>
+                @endauth
             </nav>
         </div>
     </header>
